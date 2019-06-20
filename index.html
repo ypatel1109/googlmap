@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Google MAP MASHUP
+    </title>
+    <style>
+        #map {
+            height: 100%;
+        }
+        
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        var map;
+        var parks = [{
+            "park": "Yellowstone",
+            "coords": [44.4280, -110.5885]
+        }, {
+            "park": "Glacier",
+            "coords": [48.7596, -113.7870]
+        }];
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: new google.maps.LatLng(44, -110),
+                mapTypeId: 'terrain'
+            });
+            mashParks(parks);
+        }
+
+
+        function mashParks(results) {
+            for (var i = 0; i < results.length; i++) {
+                var coords = results[i].coords;
+                var LatLng = new google.maps.LatLng(coords[0], coords[1]);
+                var marker = new google.maps.Marker({
+                    position: LatLng,
+                    map: map,
+                    label: results[i].park
+                });
+            }
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1NyeKdrWOWO_xTo09I7GULYh7JoVPitE&callback=initMap"></script>
+
+</body>
+
+</html>
